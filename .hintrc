@@ -3,6 +3,15 @@
     "development"
   ],
   "hints": {
-    "typescript-config/consistent-casing": "off"
-  }
+    "typescript-config/consistent-casing": "off",
+    "css-prefix-order": "off"
+  },
+  "browserslist": [
+    "defaults",
+    "not ie 11",
+    "not chrome <= 109",
+    "not ios_saf <= 18",
+    "not safari <= 18",
+    "not samsung <= 25"
+  ]
 }
