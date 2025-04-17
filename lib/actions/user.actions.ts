@@ -11,8 +11,8 @@ import {
 } from 'plaid';
 import { plaidClient } from '../plaid';
 import { createAdminClient, createSessionClient } from '../server/appwrite';
-import { encryptId, parseStringify } from '../utils';
-import { addFundingSource } from './dwolla.actions';
+import { encryptId, extractCustomerIdFromUrl, parseStringify } from '../utils';
+import { addFundingSource, createDwollaCustomer } from './dwolla.actions';
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -73,6 +73,15 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
 
     if (!newUserAccount) throw new Error('Error creating user');
 
+    const dwollaCustomerUrl = await createDwollaCustomer({
+      ...userData,
+      type: 'personal',
+    });
+
+    if (!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer');
+
+    const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
+
     const newUser = await database.createDocument(
       DATABASE_ID!,
       USERS_COLLECTION_ID!,
@@ -80,6 +89,8 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       {
         ...userData,
         userId: newUserAccount.$id,
+        dwollaCustomerId,
+        dwollaCustomerUrl,
       }
     );
 
@@ -103,13 +114,11 @@ export async function getLoggedInUser() {
     const { account } = await createSessionClient();
     const result = await account.get();
 
-    const user = await getUserInfo({
-      userId: result.$id,
-    });
+    const user = await getUserInfo({ userId: result.$id });
 
     return parseStringify(user);
   } catch (error) {
-    console.log('loggedInUser error:', error);
+    console.log(error);
     return null;
   }
 }
@@ -122,7 +131,7 @@ export const logoutAccount = async () => {
 
     await account.deleteSession('current');
   } catch (error) {
-    console.log('logoutAccount error:', error);
+    console.log('Error', error);
     return null;
   }
 };
@@ -239,5 +248,57 @@ export const exchangePublicToken = async ({
     });
   } catch (error) {
     console.error('An error occurred while creating exchanging token:', error);
+  }
+};
+
+export const getBanks = async ({ userId }: getBanksProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const banks = await database.listDocuments(
+      DATABASE_ID!,
+      BANKS_COLLECTION_ID!,
+      [Query.equal('userId', [userId])]
+    );
+
+    return parseStringify(banks.documents);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBank = async ({ documentId }: getBankProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const bank = await database.listDocuments(
+      DATABASE_ID!,
+      BANKS_COLLECTION_ID!,
+      [Query.equal('$id', [documentId])]
+    );
+
+    return parseStringify(bank.documents[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBankByAccountId = async ({
+  accountId,
+}: getBankByAccountIdProps) => {
+  try {
+    const { database } = await createAdminClient();
+
+    const bank = await database.listDocuments(
+      DATABASE_ID!,
+      BANKS_COLLECTION_ID!,
+      [Query.equal('accountId', [accountId])]
+    );
+
+    if (bank.total !== 1) return null;
+
+    return parseStringify(bank.documents[0]);
+  } catch (error) {
+    console.log(error);
   }
 };

@@ -51,6 +51,46 @@ export const createOnDemandAuthorization = async () => {
   }
 };
 
+export const createDwollaCustomer = async (
+  newCustomer: NewDwollaCustomerParams
+) => {
+  try {
+    return await dwollaClient
+      .post('customers', newCustomer)
+      .then((res) => res.headers.get('location'));
+  } catch (err) {
+    console.error('Creating a Dwolla Customer Failed: ', err);
+  }
+};
+
+export const createTransfer = async ({
+  sourceFundingSourceUrl,
+  destinationFundingSourceUrl,
+  amount,
+}: TransferParams) => {
+  try {
+    const requestBody = {
+      _links: {
+        source: {
+          href: sourceFundingSourceUrl,
+        },
+        destination: {
+          href: destinationFundingSourceUrl,
+        },
+      },
+      amount: {
+        currency: 'USD',
+        value: amount,
+      },
+    };
+    return await dwollaClient
+      .post('transfers', requestBody)
+      .then((res) => res.headers.get('location'));
+  } catch (err) {
+    console.error('Transfer fund failed: ', err);
+  }
+};
+
 export const addFundingSource = async ({
   dwollaCustomerId,
   processorToken,
@@ -67,7 +107,6 @@ export const addFundingSource = async ({
       plaidToken: processorToken,
       _links: dwollaAuthLinks,
     };
-
     return await createFundingSource(fundingSourceOptions);
   } catch (err) {
     console.error('Transfer fund failed: ', err);
