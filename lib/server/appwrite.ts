@@ -8,7 +8,7 @@ export async function createSessionClient() {
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
 
-  const session = await (await cookies()).get('jikmunn-session');
+  const session = (await cookies()).get('jikmunn-session');
   if (!session || !session.value) {
     throw new Error('No session');
   }
