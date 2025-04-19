@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 const config = {
   darkMode: ['class', '.dark'],
@@ -24,7 +25,8 @@ const config = {
         fill: {
           1: 'rgba(255, 255, 255, 0.10)',
         },
-        bankGradient: '#0179FE',
+        // bankGradient: '#0179FE',
+        'bank-gradient': '#0179FE',
         indigo: {
           500: '#6172F3',
           700: '#3538CD',
@@ -82,7 +84,8 @@ const config = {
           '0px 1px 3px 0px rgba(16, 24, 40, 0.10), 0px 1px 2px 0px rgba(16, 24, 40, 0.06)',
         profile:
           '0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03)',
-        creditCard: '8px 10px 16px 0px rgba(0, 0, 0, 0.05)',
+        // creditCard: '8px 10px 16px 0px rgba(0, 0, 0, 0.05)',
+        'credit-card': '8px 10px 16px 0px rgba(0, 0, 0, 0.05)',
       },
       fontFamily: {
         inter: 'var(--font-inter)',
@@ -104,7 +107,82 @@ const config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    plugin(function ({ addBase, addUtilities, addComponents, matchUtilities }) {
+      // Add custom utilities
+      addUtilities({
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '.no-scrollbar': {
+          msOverflowStyle: 'none',
+          scrollbarWidth: 'none',
+        },
+        '.custom-scrollbar::-webkit-scrollbar': {
+          width: '3px',
+          height: '3px',
+          borderRadius: '2px',
+        },
+        '.custom-scrollbar::-webkit-scrollbar-track': {
+          background: '#dddddd',
+        },
+        '.custom-scrollbar::-webkit-scrollbar-thumb': {
+          background: '#5c5c7b',
+          borderRadius: '50px',
+        },
+        '.custom-scrollbar::-webkit-scrollbar-thumb:hover': {
+          background: '#7878a3',
+        },
+        '.flex-center': {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        '.text-10': {
+          fontSize: '10px',
+          lineHeight: '14px',
+        },
+        '.text-12': {
+          fontSize: '12px',
+          lineHeight: '16px',
+        },
+        '.text-14': {
+          fontSize: '14px',
+          lineHeight: '20px',
+        },
+        '.text-16': {
+          fontSize: '16px',
+          lineHeight: '24px',
+        },
+        '.text-18': {
+          fontSize: '18px',
+          lineHeight: '22px',
+        },
+        '.text-20': {
+          fontSize: '20px',
+          lineHeight: '24px',
+        },
+        '.text-24': {
+          fontSize: '24px',
+          lineHeight: '30px',
+        },
+        '.text-26': {
+          fontSize: '26px',
+          lineHeight: '32px',
+        },
+        '.text-30': {
+          fontSize: '30px',
+          lineHeight: '38px',
+        },
+        '.text-36': {
+          fontSize: '36px',
+          lineHeight: '44px',
+        },
+      });
+    }),
+  ],
 } satisfies Config;
 
 export default config;
