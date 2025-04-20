@@ -12,31 +12,51 @@ import { z } from 'zod';
 
 const formSchema = authFormSchema('sign-up');
 
-interface CustomInput {
+interface CustomFormField {
   control: Control<z.infer<typeof formSchema>>;
   name: FieldPath<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
 }
 
-const CustomInput = ({ control, name, label, placeholder }: CustomInput) => {
+const CustomFormField = ({
+  control,
+  name,
+  label,
+  placeholder,
+}: CustomFormField) => {
   return (
     <FormField
       control={control}
       name={name}
-      render={({ field }) => (
+      render={({ field, fieldState }) => (
         <div className='form-item'>
-          <FormLabel className='form-label'>{label}</FormLabel>
+          <FormLabel
+            // className='form-label'
+            className='shad-input-label'
+            htmlFor={`input-${name}`}
+          >
+            {label}
+          </FormLabel>
           <div className='flex w-full flex-col'>
             <FormControl>
               <Input
+                id={`input-${name}`}
+                aria-describedby={
+                  fieldState.error ? `error-${name}` : undefined
+                }
                 placeholder={placeholder}
-                className='input-class'
+                className='shad-input'
+                // className='text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500'
                 type={name === 'password' ? 'password' : 'text'}
                 {...field}
               />
             </FormControl>
-            <FormMessage className='form-message mt-2' />
+            <FormMessage
+              id={`error-${name}`}
+              // className='form-message mt-2'
+              className='shad-error mt-2'
+            />
           </div>
         </div>
       )}
@@ -44,4 +64,4 @@ const CustomInput = ({ control, name, label, placeholder }: CustomInput) => {
   );
 };
 
-export default CustomInput;
+export default CustomFormField;

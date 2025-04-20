@@ -181,6 +181,11 @@ const config = {
           lineHeight: '44px',
         },
       });
+      // addComponents({
+      //   '.input-class': {
+
+      //   }
+      // })
     }),
   ],
 } satisfies Config;

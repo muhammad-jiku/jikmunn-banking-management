@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import CustomInput from './CustomInput';
+import CustomFormField from './CustomFormField';
 import PlaidLink from './PlaidLink';
 
 const AuthForm = ({ type }: { type: string }) => {
@@ -109,39 +109,39 @@ const AuthForm = ({ type }: { type: string }) => {
               {type === 'sign-up' && (
                 <>
                   <div className='flex gap-4'>
-                    <CustomInput
+                    <CustomFormField
                       control={form.control}
                       name='firstName'
                       label='First Name'
                       placeholder='Enter your first name'
                     />
-                    <CustomInput
+                    <CustomFormField
                       control={form.control}
                       name='lastName'
                       label='Last Name'
                       placeholder='Enter your first name'
                     />
                   </div>
-                  <CustomInput
+                  <CustomFormField
                     control={form.control}
                     name='address1'
                     label='Address'
                     placeholder='Enter your specific address'
                   />
-                  <CustomInput
+                  <CustomFormField
                     control={form.control}
                     name='city'
                     label='City'
                     placeholder='Enter your city'
                   />
                   <div className='flex gap-4'>
-                    <CustomInput
+                    <CustomFormField
                       control={form.control}
                       name='state'
                       label='State'
                       placeholder='Example: NY'
                     />
-                    <CustomInput
+                    <CustomFormField
                       control={form.control}
                       name='postalCode'
                       label='Postal Code'
@@ -149,13 +149,13 @@ const AuthForm = ({ type }: { type: string }) => {
                     />
                   </div>
                   <div className='flex gap-4'>
-                    <CustomInput
+                    <CustomFormField
                       control={form.control}
                       name='dateOfBirth'
                       label='Date of Birth'
                       placeholder='YYYY-MM-DD'
                     />
-                    <CustomInput
+                    <CustomFormField
                       control={form.control}
                       name='ssn'
                       label='SSN'
@@ -165,14 +165,14 @@ const AuthForm = ({ type }: { type: string }) => {
                 </>
               )}
 
-              <CustomInput
+              <CustomFormField
                 control={form.control}
                 name='email'
                 label='Email'
                 placeholder='Enter your email'
               />
 
-              <CustomInput
+              <CustomFormField
                 control={form.control}
                 name='password'
                 label='Password'
@@ -180,7 +180,12 @@ const AuthForm = ({ type }: { type: string }) => {
               />
 
               <div className='flex flex-col gap-4'>
-                <Button type='submit' disabled={isLoading} className='form-btn'>
+                <Button
+                  type='submit'
+                  disabled={isLoading}
+                  // className='form-btn'
+                  className='shad-primary-btn'
+                >
                   {isLoading ? (
                     <>
                       <Loader2 size={20} className='animate-spin' /> &nbsp;
@@ -196,8 +201,8 @@ const AuthForm = ({ type }: { type: string }) => {
             </form>
           </Form>
 
-          <footer className='flex justify-center gap-1'>
-            <p className='text-14 font-normal text-gray-600'>
+          <footer className='flex justify-center gap-2'>
+            <p className='text-14 font-normal text-gray-600 p-2'>
               {type === 'sign-in'
                 ? "Don't have an account?"
                 : 'Already have an account?'}

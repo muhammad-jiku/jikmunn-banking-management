@@ -1,5 +1,6 @@
 export const dynamic = 'force-dynamic';
 
+import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
 import { IBM_Plex_Serif, Inter } from 'next/font/google';
 import './globals.css';
@@ -28,7 +29,9 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${ibmPlexSerif.variable}`}
+        className={cn(
+          `min-h-screen ${inter.variable} ${ibmPlexSerif.variable}`
+        )}
       >
         {children}
       </body>
