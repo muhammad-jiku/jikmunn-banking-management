@@ -32,8 +32,8 @@ const CustomFormField = ({
       render={({ field, fieldState }) => (
         <div className='form-item'>
           <FormLabel
-            // className='form-label'
-            className='shad-input-label'
+            className='form-label'
+            // className='shad-input-label'
             htmlFor={`input-${name}`}
           >
             {label}
@@ -46,16 +46,16 @@ const CustomFormField = ({
                   fieldState.error ? `error-${name}` : undefined
                 }
                 placeholder={placeholder}
-                className='shad-input'
-                // className='text-16 placeholder:text-16 rounded-lg border border-gray-300 text-gray-900 placeholder:text-gray-500'
+                className='input-class'
+                // className='shad-input'
                 type={name === 'password' ? 'password' : 'text'}
                 {...field}
               />
             </FormControl>
             <FormMessage
               id={`error-${name}`}
-              // className='form-message mt-2'
-              className='shad-error mt-2'
+              className='form-message mt-2'
+              // className='shad-error mt-2'
             />
           </div>
         </div>

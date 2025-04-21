@@ -183,8 +183,8 @@ const AuthForm = ({ type }: { type: string }) => {
                 <Button
                   type='submit'
                   disabled={isLoading}
-                  // className='form-btn'
-                  className='shad-primary-btn'
+                  className='form-btn'
+                  // className='shad-primary-btn'
                 >
                   {isLoading ? (
                     <>
