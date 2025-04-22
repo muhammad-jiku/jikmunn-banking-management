@@ -137,25 +137,17 @@ export function countTransactionCategories(
   const categoryCounts: { [category: string]: number } = {};
   let totalCount = 0;
 
-  // Iterate over each transaction
   transactions &&
     transactions.forEach((transaction) => {
-      // Extract the category from the transaction
       const category = transaction.category;
-
-      // If the category exists in the categoryCounts object, increment its count
       if (categoryCounts.hasOwnProperty(category)) {
         categoryCounts[category]++;
       } else {
-        // Otherwise, initialize the count to 1
         categoryCounts[category] = 1;
       }
-
-      // Increment total count
       totalCount++;
     });
 
-  // Convert the categoryCounts object to an array of objects
   const aggregatedCategories: CategoryCount[] = Object.keys(categoryCounts).map(
     (category) => ({
       name: category,
@@ -164,20 +156,26 @@ export function countTransactionCategories(
     })
   );
 
-  // Sort the aggregatedCategories array by count in descending order
   aggregatedCategories.sort((a, b) => b.count - a.count);
 
   return aggregatedCategories;
 }
 
 export function extractCustomerIdFromUrl(url: string) {
-  // Split the URL string by '/'
   const parts = url.split('/');
-
-  // Extract the last part, which represents the customer ID
   const customerId = parts[parts.length - 1];
-
   return customerId;
+}
+
+/**
+ * Generate a username by combining first and last names (without spaces),
+ * converting to lowercase, and appending a random 0–10000 integer.
+ */
+export function generateUsername(firstName: string, lastName: string): string {
+  const cleanFirst = firstName.replace(/\s+/g, '').toLowerCase();
+  const cleanLast = lastName.replace(/\s+/g, '').toLowerCase();
+  const randomDigits = Math.round(Math.random() * 10000);
+  return `${cleanFirst}.${cleanLast}${randomDigits}`;
 }
 
 export function encryptId(id: string) {

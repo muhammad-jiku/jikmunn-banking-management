@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { signIn, signUp } from '@/lib/actions/user.actions';
-import { authFormSchema } from '@/lib/utils';
+import { authFormSchema, generateUsername } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
@@ -39,9 +39,12 @@ const AuthForm = ({ type }: { type: string }) => {
       // Sign up with Appwrite & create plaid token
 
       if (type === 'sign-up') {
+        const username = generateUsername(data.firstName!, data.lastName!);
+
         const userData = {
           firstName: data.firstName!,
           lastName: data.lastName!,
+          username,
           address1: data.address1!,
           city: data.city!,
           state: data.state!,

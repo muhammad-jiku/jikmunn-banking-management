@@ -41,7 +41,7 @@ export const signIn = async ({ email, password }: signInProps) => {
     const { account } = await createAdminClient();
     const session = await account.createEmailPasswordSession(email, password);
 
-    (await cookies()).set('appwrite-session', session.secret, {
+    (await cookies()).set('jikmunn-session', session.secret, {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
@@ -70,6 +70,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       password,
       `${firstName} ${lastName}`
     );
+    console.log('New user account:', newUserAccount);
 
     if (!newUserAccount) throw new Error('Error creating user');
 
@@ -77,6 +78,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       ...userData,
       type: 'personal',
     });
+    console.log('Dwolla customer URL:', dwollaCustomerUrl);
 
     if (!dwollaCustomerUrl) throw new Error('Error creating Dwolla customer');
 
@@ -96,7 +98,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
 
     const session = await account.createEmailPasswordSession(email, password);
 
-    (await cookies()).set('appwrite-session', session.secret, {
+    (await cookies()).set('jikmunn-session', session.secret, {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
@@ -127,7 +129,7 @@ export const logoutAccount = async () => {
   try {
     const { account } = await createSessionClient();
 
-    (await cookies()).delete('appwrite-session');
+    (await cookies()).delete('jikmunn-session');
 
     await account.deleteSession('current');
   } catch (error) {
