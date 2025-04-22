@@ -5,9 +5,14 @@ import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 import { formatAmount } from '@/lib/utils';
 
-const TransactionHistory = async ({
-  searchParams: { id, page },
-}: SearchParamProps) => {
+// searchParams is a Promise that must be awaited
+interface SearchParamProps {
+  searchParams: Promise<{ id?: string; page?: string }>;
+}
+
+const TransactionHistory = async ({ searchParams }: SearchParamProps) => {
+  // Await and extract search params
+  const { id, page } = await searchParams;
   const currentPage = Number(page as string) || 1;
   const loggedIn = await getLoggedInUser();
   const accounts = await getAccounts({

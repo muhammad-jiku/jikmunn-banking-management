@@ -46,7 +46,7 @@ const BankCard = ({
         </div>
 
         <Image
-          src='/icons/lines.png'
+          src='/images/lines.png'
           width={316}
           height={190}
           alt='lines'
