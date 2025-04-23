@@ -83,7 +83,42 @@ export function formatAmount(amount: number): string {
   return formatter.format(amount);
 }
 
-export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+// export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
+
+/**
+ * Creates a deep copy of a value through JSON serialization/deserialization
+ * with improved error handling and fallbacks for invalid inputs.
+ *
+ * @param value - Any serializable JavaScript value
+ * @returns A deep copy of the value, or an appropriate fallback if serialization fails
+ */
+export const parseStringify = (value: any) => {
+  // Handle undefined or null values gracefully
+  if (value === undefined) {
+    return null; // Convert undefined to null for consistency
+  }
+
+  if (value === null) {
+    return null;
+  }
+
+  try {
+    // Attempt standard JSON serialization/deserialization
+    return JSON.parse(JSON.stringify(value));
+  } catch (error) {
+    console.error('Error in parseStringify:', error);
+
+    // Return appropriate fallbacks based on the input type
+    if (Array.isArray(value)) {
+      return [];
+    } else if (typeof value === 'object') {
+      return {};
+    }
+
+    // For primitive values, return as is
+    return value;
+  }
+};
 
 export const removeSpecialCharacters = (value: string) => {
   return value.replace(/[^\w\s]/gi, '');

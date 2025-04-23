@@ -12,12 +12,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Footer from './Footer';
+import PlaidLink from './PlaidLink';
 
 const MobileNav = ({ user }: MobileNavProps) => {
   const pathname = usePathname();
 
   return (
-    <section className='w-fulll max-w-[264px]'>
+    <section className='w-full max-w-[264px]'>
       <Sheet>
         <SheetTrigger>
           <Image
@@ -31,7 +32,7 @@ const MobileNav = ({ user }: MobileNavProps) => {
         <SheetContent side='left' className='border-none bg-white'>
           <Link
             href='/'
-            className='cursor-pointer flex items-center gap-1 px-4'
+            className='cursor-pointer flex items-center gap-1 p-4 my-2'
           >
             <Image
               src='/icons/logo.svg'
@@ -80,7 +81,8 @@ const MobileNav = ({ user }: MobileNavProps) => {
                     </SheetClose>
                   );
                 })}
-                USER
+                <PlaidLink user={user} />
+                {/* USER */}
               </nav>
             </SheetClose>
 
