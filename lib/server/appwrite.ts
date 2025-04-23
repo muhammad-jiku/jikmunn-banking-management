@@ -28,6 +28,11 @@ export async function createAdminClient() {
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!)
     .setKey(process.env.NEXT_PUBLIC_APPWRITE_API_KEY!);
 
+  // console.log('createAdminClient', client);
+  // console.log('createAdminClient endpoint', process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!);
+  // console.log('createAdminClient project id', process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID!);
+  // console.log('createAdminClient api key', process.env.NEXT_PUBLIC_APPWRITE_API_KEY!);
+
   return {
     get account() {
       return new Account(client);

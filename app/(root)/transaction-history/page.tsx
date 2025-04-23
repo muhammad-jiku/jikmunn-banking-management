@@ -1,8 +1,8 @@
 import HeaderBox from '@/components/shared/HeaderBox';
 import Pagination from '@/components/shared/Pagination';
 import TransactionsTable from '@/components/shared/TransactionsTable';
-import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getAccount, getAccounts } from '@/lib/server/actions/bank.actions';
+import { getLoggedInUser } from '@/lib/server/actions/user.actions';
 import { formatAmount } from '@/lib/utils';
 
 // searchParams is a Promise that must be awaited

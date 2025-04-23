@@ -1,6 +1,8 @@
+'use server';
+
 import { ID, Query } from 'node-appwrite';
-import { createAdminClient } from '../server/appwrite';
-import { parseStringify } from '../utils';
+import { parseStringify } from '../../utils';
+import { createAdminClient } from '../appwrite';
 
 const {
   APPWRITE_DATABASE_ID: DATABASE_ID,
@@ -11,10 +13,7 @@ export const createTransaction = async (
   transaction: CreateTransactionProps
 ) => {
   try {
-    console.log('Creating transaction', transaction);
-
     const { database } = await createAdminClient();
-    console.log('database', database);
 
     const newTransaction = await database.createDocument(
       DATABASE_ID!,
@@ -26,7 +25,6 @@ export const createTransaction = async (
         ...transaction,
       }
     );
-    console.log('newTransaction', newTransaction);
 
     return parseStringify(newTransaction);
   } catch (error) {
@@ -39,21 +37,18 @@ export const getTransactionsByBankId = async ({
 }: getTransactionsByBankIdProps) => {
   try {
     const { database } = await createAdminClient();
-    console.log('database', database);
 
     const senderTransactions = await database.listDocuments(
       DATABASE_ID!,
       TRANSACTIONS_COLLECTION_ID!,
       [Query.equal('senderBankId', bankId)]
     );
-    console.log('senderTransactions', senderTransactions);
 
     const receiverTransactions = await database.listDocuments(
       DATABASE_ID!,
       TRANSACTIONS_COLLECTION_ID!,
       [Query.equal('receiverBankId', bankId)]
     );
-    console.log('receiverTransactions', receiverTransactions);
 
     const transactions = {
       total: senderTransactions.total + receiverTransactions.total,
@@ -62,7 +57,6 @@ export const getTransactionsByBankId = async ({
         ...receiverTransactions.documents,
       ],
     };
-    console.log('transactions', transactions);
 
     return parseStringify(transactions);
   } catch (error) {

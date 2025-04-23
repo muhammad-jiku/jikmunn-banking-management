@@ -22,15 +22,12 @@ const dwollaClient = new Client({
   key: process.env.DWOLLA_KEY as string,
   secret: process.env.DWOLLA_SECRET as string,
 });
-console.log('dwollaClient', dwollaClient);
 
 // Create a Dwolla Funding Source using a Plaid Processor Token
 export const createFundingSource = async (
   options: CreateFundingSourceOptions
 ) => {
   try {
-    console.log('Creating a funding source: ', options);
-
     return await dwollaClient
       .post(`customers/${options.customerId}/funding-sources`, {
         name: options.fundingSourceName,
@@ -47,11 +44,7 @@ export const createOnDemandAuthorization = async () => {
     const onDemandAuthorization = await dwollaClient.post(
       'on-demand-authorizations'
     );
-    console.log('onDemandAuthorization', onDemandAuthorization);
-
     const authLink = onDemandAuthorization.body._links;
-    console.log('authLink', authLink);
-
     return authLink;
   } catch (err) {
     console.error('Creating an On Demand Authorization Failed: ', err);
@@ -62,8 +55,6 @@ export const createDwollaCustomer = async (
   newCustomer: NewDwollaCustomerParams
 ) => {
   try {
-    console.log('Creating a new customer: ', newCustomer);
-    console.log('dwolla client: ', dwollaClient);
     return await dwollaClient
       .post('customers', newCustomer)
       .then((res) => res.headers.get('location'));
@@ -78,13 +69,6 @@ export const createTransfer = async ({
   amount,
 }: TransferParams) => {
   try {
-    console.log('Creating a transfer: ', {
-      sourceFundingSourceUrl,
-      destinationFundingSourceUrl,
-      amount,
-    });
-    console.log('dwolla client: ', dwollaClient);
-
     const requestBody = {
       _links: {
         source: {
@@ -99,8 +83,6 @@ export const createTransfer = async ({
         value: amount,
       },
     };
-    console.log('requestBody', requestBody);
-
     return await dwollaClient
       .post('transfers', requestBody)
       .then((res) => res.headers.get('location'));
@@ -115,15 +97,8 @@ export const addFundingSource = async ({
   bankName,
 }: AddFundingSourceParams) => {
   try {
-    console.log('Adding a funding source: ', {
-      dwollaCustomerId,
-      processorToken,
-      bankName,
-    });
-
     // create dwolla auth link
     const dwollaAuthLinks = await createOnDemandAuthorization();
-    console.log('dwollaAuthLinks', dwollaAuthLinks);
 
     // add funding source to the dwolla customer & get the funding source url
     const fundingSourceOptions = {
@@ -132,7 +107,6 @@ export const addFundingSource = async ({
       plaidToken: processorToken,
       _links: dwollaAuthLinks,
     };
-    console.log('fundingSourceOptions', fundingSourceOptions);
 
     return await createFundingSource(fundingSourceOptions);
   } catch (err) {

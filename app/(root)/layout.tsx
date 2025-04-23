@@ -1,6 +1,6 @@
 import MobileNav from '@/components/shared/MobileNav';
 import Sidebar from '@/components/shared/Sidebar';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getLoggedInUser } from '@/lib/server/actions/user.actions';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 

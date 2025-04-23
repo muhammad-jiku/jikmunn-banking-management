@@ -4,7 +4,8 @@
   ],
   "hints": {
     "typescript-config/consistent-casing": "off",
-    "css-prefix-order": "off"
+    "css-prefix-order": "off",
+    "disown-opener": "off"
   },
   "browserslist": [
     "defaults",

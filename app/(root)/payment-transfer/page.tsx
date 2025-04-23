@@ -1,7 +1,7 @@
 import HeaderBox from '@/components/shared/HeaderBox';
 import PaymentTransferForm from '@/components/shared/PaymentTransferForm';
-import { getAccounts } from '@/lib/actions/bank.actions';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getAccounts } from '@/lib/server/actions/bank.actions';
+import { getLoggedInUser } from '@/lib/server/actions/user.actions';
 
 const Transfer = async () => {
   const loggedIn = await getLoggedInUser();

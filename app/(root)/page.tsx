@@ -2,9 +2,9 @@ import HeaderBox from '@/components/shared/HeaderBox';
 import RecentTransactions from '@/components/shared/RecentTransactions';
 import RightSidebar from '@/components/shared/RightSidebar';
 import TotalBalanceBox from '@/components/shared/TotalBalanceBox';
-import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
-import { createSessionClient } from '@/lib/server/appwrite';
+import { getAccount, getAccounts } from '@/lib/server/actions/bank.actions';
+import { getLoggedInUser } from '@/lib/server/actions/user.actions';
+// import { createSessionClient } from '@/lib/server/appwrite';
 import { redirect } from 'next/navigation';
 
 // searchParams is a Promise that must be awaited
@@ -14,7 +14,7 @@ interface SearchParamProps {
 
 export default async function Home({ searchParams }: SearchParamProps) {
   // Initialize Appwrite session
-  await createSessionClient();
+  // await createSessionClient();
 
   // Fetch the current user
   const loggedIn = await getLoggedInUser();
@@ -37,6 +37,8 @@ export default async function Home({ searchParams }: SearchParamProps) {
   // Fetch selected account details and transactions
   const account = await getAccount({ appwriteItemId });
   // if (!account) return null;
+
+  console.log({ accounts, accountsData, appwriteItemId, account });
 
   return (
     <section className='home'>

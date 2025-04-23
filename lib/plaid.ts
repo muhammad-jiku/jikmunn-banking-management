@@ -20,5 +20,7 @@ const configuration = new Configuration({
 });
 
 console.log('→ Plaid basePath is', basePath);
+console.log('→ Plaid client is', process.env.PLAID_CLIENT_ID!);
+console.log('→ Plaid secret is', process.env.PLAID_SECRET!);
 
 export const plaidClient = new PlaidApi(configuration);

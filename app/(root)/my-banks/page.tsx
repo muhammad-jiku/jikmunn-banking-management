@@ -1,7 +1,7 @@
 import BankCard from '@/components/shared/BankCard';
 import HeaderBox from '@/components/shared/HeaderBox';
-import { getAccounts } from '@/lib/actions/bank.actions';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getAccounts } from '@/lib/server/actions/bank.actions';
+import { getLoggedInUser } from '@/lib/server/actions/user.actions';
 import { Key } from 'react';
 
 const MyBanks = async () => {

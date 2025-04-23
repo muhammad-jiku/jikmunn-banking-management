@@ -5,6 +5,12 @@ import qs from 'query-string';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';
 
+interface UrlQueryParams {
+  params: string;
+  key: string;
+  value: string;
+}
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -83,12 +89,6 @@ export const removeSpecialCharacters = (value: string) => {
   return value.replace(/[^\w\s]/gi, '');
 };
 
-interface UrlQueryParams {
-  params: string;
-  key: string;
-  value: string;
-}
-
 export function formUrlQuery({ params, key, value }: UrlQueryParams) {
   const currentUrl = qs.parse(params);
 
@@ -162,8 +162,12 @@ export function countTransactionCategories(
 }
 
 export function extractCustomerIdFromUrl(url: string) {
+  // Split the URL string by '/'
   const parts = url.split('/');
+
+  // Extract the last part, which represents the customer ID
   const customerId = parts[parts.length - 1];
+
   return customerId;
 }
 
