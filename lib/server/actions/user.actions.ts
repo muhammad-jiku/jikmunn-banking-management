@@ -153,7 +153,6 @@ export const createLinkToken = async (user: User) => {
     };
 
     const response = await plaidClient.linkTokenCreate(tokenParams);
-    console.log('Link token created:', response);
 
     return parseStringify({ linkToken: response.data.link_token });
   } catch (error) {

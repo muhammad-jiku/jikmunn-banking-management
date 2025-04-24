@@ -14,10 +14,10 @@ export default async function RootLayout({
   if (!loggedIn) redirect('/sign-in');
 
   return (
-    <main className='flex h-screen w-full font-inter'>
+    <main className='flex h-screen w-full font-inter overflow-hidden'>
       <Sidebar user={loggedIn} />
 
-      <div className='flex size-full flex-col'>
+      <div className='flex-1 flex flex-col overflow-auto'>
         <div className='root-layout'>
           <Image src='/icons/logo.svg' width={30} height={30} alt='logo' />
           <div>
