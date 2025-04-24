@@ -183,12 +183,7 @@ const AuthForm = ({ type }: { type: string }) => {
               />
 
               <div className='flex flex-col gap-4'>
-                <Button
-                  type='submit'
-                  disabled={isLoading}
-                  className='form-btn'
-                  // className='shad-primary-btn'
-                >
+                <Button type='submit' disabled={isLoading} className='form-btn'>
                   {isLoading ? (
                     <>
                       <Loader2 size={20} className='animate-spin' /> &nbsp;
@@ -204,8 +199,8 @@ const AuthForm = ({ type }: { type: string }) => {
             </form>
           </Form>
 
-          <footer className='flex justify-center gap-2'>
-            <p className='text-14 font-normal text-gray-600 p-2'>
+          <footer className='flex justify-center gap-1'>
+            <p className='text-14 font-normal text-gray-600'>
               {type === 'sign-in'
                 ? "Don't have an account?"
                 : 'Already have an account?'}

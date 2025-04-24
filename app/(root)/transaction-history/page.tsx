@@ -36,6 +36,7 @@ const TransactionHistory = async ({ searchParams }: SearchParamProps) => {
     indexOfFirstTransaction,
     indexOfLastTransaction
   );
+
   return (
     <div className='transactions'>
       <div className='transactions-header'>

@@ -29,34 +29,19 @@ const CustomFormField = ({
     <FormField
       control={control}
       name={name}
-      render={({ field, fieldState }) => (
+      render={({ field }) => (
         <div className='form-item'>
-          <FormLabel
-            className='form-label'
-            // className='shad-input-label'
-            htmlFor={`input-${name}`}
-          >
-            {label}
-          </FormLabel>
+          <FormLabel className='form-label'>{label}</FormLabel>
           <div className='flex w-full flex-col'>
             <FormControl>
               <Input
-                id={`input-${name}`}
-                aria-describedby={
-                  fieldState.error ? `error-${name}` : undefined
-                }
                 placeholder={placeholder}
                 className='input-class'
-                // className='shad-input'
                 type={name === 'password' ? 'password' : 'text'}
                 {...field}
               />
             </FormControl>
-            <FormMessage
-              id={`error-${name}`}
-              className='form-message mt-2'
-              // className='shad-error mt-2'
-            />
+            <FormMessage className='form-message mt-2' />
           </div>
         </div>
       )}

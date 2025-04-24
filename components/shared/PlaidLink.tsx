@@ -14,7 +14,6 @@ import {
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
   const router = useRouter();
-
   const [token, setToken] = useState<string>('');
 
   useEffect(() => {

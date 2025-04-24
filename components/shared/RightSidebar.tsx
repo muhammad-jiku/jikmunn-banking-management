@@ -10,10 +10,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
   return (
     <aside className='right-sidebar'>
       <section className='flex flex-col pb-8'>
-        <div
-          // className='profile-banner gradient-mesh'
-          className='profile-banner'
-        />
+        <div className='profile-banner' />
         <div className='profile'>
           <div className='profile-img'>
             <span className='text-5xl font-bold text-blue-500'>
@@ -63,7 +60,7 @@ const RightSidebar = ({ user, transactions, banks }: RightSidebarProps) => {
         )}
 
         <div className='mt-10 flex flex-1 flex-col gap-6'>
-          <h2 className='header-2 py-4'>Top categories</h2>
+          <h2 className='header-2'>Top categories</h2>
 
           <div className='space-y-5'>
             {categories.map((category, idx) => (

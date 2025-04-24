@@ -29,9 +29,9 @@ const CategoryBadge = ({ category }: CategoryBadgeProps) => {
   );
 };
 
-const TransactionsTable = ({ transactions = [] }: TransactionTableProps) => {
+const TransactionsTable = ({ transactions }: TransactionTableProps) => {
   return (
-    <Table>
+    <Table className='-z-10'>
       <TableHeader className='bg-[#f9fafb]'>
         <TableRow>
           <TableHead className='px-2'>Transaction</TableHead>

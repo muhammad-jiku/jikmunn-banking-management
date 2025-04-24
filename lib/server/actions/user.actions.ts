@@ -1,5 +1,7 @@
 'use server';
 
+import { plaidClient } from '@/lib/plaid';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { ID, Query } from 'node-appwrite';
 import {
@@ -13,9 +15,6 @@ import {
   extractCustomerIdFromUrl,
   parseStringify,
 } from '../../utils';
-
-import { plaidClient } from '@/lib/plaid';
-import { revalidatePath } from 'next/cache';
 import { createAdminClient, createSessionClient } from '../appwrite';
 import { addFundingSource, createDwollaCustomer } from './dwolla.actions';
 
@@ -148,12 +147,13 @@ export const createLinkToken = async (user: User) => {
         client_user_id: user.$id,
       },
       client_name: `${user.firstName} ${user.lastName}`,
-      products: ['auth'] as Products[],
+      products: ['auth', 'transactions', 'identity'] as Products[],
       language: 'en',
-      country_codes: ['US'] as CountryCode[],
+      country_codes: ['US', 'CA'] as CountryCode[],
     };
 
     const response = await plaidClient.linkTokenCreate(tokenParams);
+    console.log('Link token created:', response);
 
     return parseStringify({ linkToken: response.data.link_token });
   } catch (error) {
@@ -234,7 +234,7 @@ export const exchangePublicToken = async ({
     // If the funding source URL is not created, throw an error
     if (!fundingSourceUrl) throw Error;
 
-    // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and shareableId ID
+    // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and shareable ID
     await createBankAccount({
       userId: user.$id,
       bankId: itemId,

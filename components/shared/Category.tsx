@@ -1,9 +1,8 @@
-import Image from 'next/image';
-
 import { Progress } from '@/components/ui/progress';
 import { topCategoryStyles } from '@/constants';
 import { cn } from '@/lib/utils';
-import { Indicator } from '@radix-ui/react-progress';
+// import { Indicator } from '@radix-ui/react-progress';
+import Image from 'next/image';
 
 const Category = ({ category }: CategoryProps) => {
   const {
@@ -25,13 +24,18 @@ const Category = ({ category }: CategoryProps) => {
           <h2 className={cn('font-medium', main)}>{category.name}</h2>
           <h3 className={cn('font-normal', count)}>{category.count}</h3>
         </div>
+        {/* <Progress
+          value={(category.count / category.totalCount) * 100}
+          className={cn('h-2 w-full', progressBg)}
+          // indicatorClassName={cn("h-2 w-full", indicator)}
+        >
+          <Indicator className={cn('h-2 w-full', indicator)} />
+        </Progress> */}
         <Progress
           value={(category.count / category.totalCount) * 100}
           className={cn('h-2 w-full', progressBg)}
-          //   indicatorClassName={cn("h-2 w-full", indicator)}
-        >
-          <Indicator className={cn('h-2 w-full', indicator)} />
-        </Progress>
+          indicatorClassName={cn('h-2 w-full', indicator)}
+        />
       </div>
     </div>
   );
