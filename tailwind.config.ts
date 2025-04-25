@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from 'tailwindcss';
-// import plugin from 'tailwindcss/plugin';
 
 const config = {
   darkMode: ['class'],
@@ -107,82 +106,7 @@ const config = {
       },
     },
   },
-  plugins: [
-    require('tailwindcss-animate'),
-
-    // plugin(function ({ addUtilities }) {
-    //   // Add custom utilities
-    //   addUtilities({
-    //     '.no-scrollbar::-webkit-scrollbar': {
-    //       display: 'none',
-    //     },
-    //     '.no-scrollbar': {
-    //       msOverflowStyle: 'none',
-    //       scrollbarWidth: 'none',
-    //     },
-    //     '.custom-scrollbar::-webkit-scrollbar': {
-    //       width: '3px',
-    //       height: '3px',
-    //       borderRadius: '2px',
-    //     },
-    //     '.custom-scrollbar::-webkit-scrollbar-track': {
-    //       background: '#dddddd',
-    //     },
-    //     '.custom-scrollbar::-webkit-scrollbar-thumb': {
-    //       background: '#5c5c7b',
-    //       borderRadius: '50px',
-    //     },
-    //     '.custom-scrollbar::-webkit-scrollbar-thumb:hover': {
-    //       background: '#7878a3',
-    //     },
-    //     // '.flex-center': {
-    //     //   display: 'flex',
-    //     //   justifyContent: 'center',
-    //     //   alignItems: 'center',
-    //     // },
-    //     // '.text-10': {
-    //     //   fontSize: '10px',
-    //     //   lineHeight: '14px',
-    //     // },
-    //     // '.text-12': {
-    //     //   fontSize: '12px',
-    //     //   lineHeight: '16px',
-    //     // },
-    //     // '.text-14': {
-    //     //   fontSize: '14px',
-    //     //   lineHeight: '20px',
-    //     // },
-    //     // '.text-16': {
-    //     //   fontSize: '16px',
-    //     //   lineHeight: '24px',
-    //     // },
-    //     // '.text-18': {
-    //     //   fontSize: '18px',
-    //     //   lineHeight: '22px',
-    //     // },
-    //     // '.text-20': {
-    //     //   fontSize: '20px',
-    //     //   lineHeight: '24px',
-    //     // },
-    //     // '.text-24': {
-    //     //   fontSize: '24px',
-    //     //   lineHeight: '30px',
-    //     // },
-    //     // '.text-26': {
-    //     //   fontSize: '26px',
-    //     //   lineHeight: '32px',
-    //     // },
-    //     // '.text-30': {
-    //     //   fontSize: '30px',
-    //     //   lineHeight: '38px',
-    //     // },
-    //     // '.text-36': {
-    //     //   fontSize: '36px',
-    //     //   lineHeight: '44px',
-    //     // },
-    //   });
-    // }),
-  ],
+  plugins: [require('tailwindcss-animate')],
 } satisfies Config;
 
 export default config;

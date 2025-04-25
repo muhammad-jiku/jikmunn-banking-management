@@ -28,7 +28,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
   const accounts = await getAccounts({
     userId: loggedIn.$id,
   });
-  // if (!accounts) return null;
+
   if (!accounts) return;
 
   const accountsData = accounts?.data;
@@ -36,7 +36,6 @@ export default async function Home({ searchParams }: SearchParamProps) {
 
   // Fetch selected account details and transactions
   const account = await getAccount({ appwriteItemId });
-  // if (!account) return null;
 
   return (
     <section className='home'>
